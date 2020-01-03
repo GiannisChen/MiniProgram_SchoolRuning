@@ -1,0 +1,49 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/test/test"
+  ],
+
+  "window": {
+    "backgroundTextStyle": "dark",
+    "backgroundColor": "#8f8f8f",
+
+    "navigationBarBackgroundColor": "#8f8f8f",
+    "navigationBarTitleText": "wywnb",
+    "navigationBarTextStyle": "white",
+    "navigationStyle": "default",
+
+    "enablePullDownRefresh": true
+  },
+  
+  "tabBar":{
+    "list":[
+      {
+        "pagePath": "pages/index/index",
+        "text": "wywnb",
+        "iconPath": "iconPicture/tab005.jpg",
+        "selectedIconPath": "iconPicture/tab004.jpg"
+      },
+      {
+        "pagePath": "pages/logs/logs",
+        "text": "wywsb",
+        "iconPath": "iconPicture/tab005.jpg",
+        "selectedIconPath": "iconPicture/tab006.jpg"
+      },
+      {
+        "pagePath": "pages/test/test",
+        "text": "wywwd",
+        "iconPath": "iconPicture/tab005.jpg",
+        "selectedIconPath": "iconPicture/tab008.jpg"
+      }
+    ],
+    "color": "#8f8f8f",
+    "selectedColor": "#000000",
+    "backgroundColor": "#ffffff",
+    "position": "bottom"
+  },
+
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

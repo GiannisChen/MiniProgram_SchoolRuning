@@ -1,0 +1,2 @@
+<!--test.wxml-->
+<view>{{msg01}}{{msg02}}{{msg03}}</view>

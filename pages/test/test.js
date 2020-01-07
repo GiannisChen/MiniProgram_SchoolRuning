@@ -3,16 +3,20 @@
 var app=getApp()
 console.log(app.globalData.userInfo)
 
+
 Page({
   /**
    * 自定义内容
    */
   myData: 'wyw',
 
+  
+
   /**
    * 页面的初始数据
    */
   data: {
+    buttonMsg:  "单击王烨文🐔",
     msg01: "wyw",
     msg02: "是真的",
     msg03: "nb"
@@ -36,7 +40,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
+    console.log(this.route);
   },
 
   /**
@@ -70,7 +74,31 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-    
+  onShareAppMessage: function (res) {
+    if (res.from==='button') {
+      console.log(res.target);
+    }
+
+    return {
+      tilte: '自定义王烨文牛逼的转发标题',
+      path: '/page/user?id=123'
+    }
+  },
+
+  /**
+   * 单击tab时触发
+   */
+  onTabItemTap(item) {
+    console.log(item.index);
+    console.log(item.pagePath);
+    console.log(item.text);
+  },
+
+  /**
+   * button"单击王烨文🐔"的btnTap
+   */
+  btnTap: function() {
+    console.log('🐔被按下！');
+    this.setData({buttonMsg:'wyw的🐔被按下了'})
   }
 })

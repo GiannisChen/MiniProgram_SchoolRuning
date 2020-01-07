@@ -19,3 +19,12 @@
 .usermotto {
   margin-top: 200px;
 }
+
+.testStyle01 {
+  color:red;
+}
+
+.testStyle02 {
+  font-size: 20px;
+  font-weight: bold;
+}

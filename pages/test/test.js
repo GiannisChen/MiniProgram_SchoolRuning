@@ -2,7 +2,7 @@
 //获取应用实例
 var app=getApp()
 console.log(app.globalData.userInfo)
-
+var n=0
 
 Page({
   /**
@@ -16,10 +16,12 @@ Page({
    * 页面的初始数据
    */
   data: {
-    buttonMsg:  "单击王烨文🐔",
+    buttonMsg:  '按wyw的🐔',
     msg01: "wyw",
     msg02: "是真的",
-    msg03: "nb"
+    msg03: "nb",
+    array:[1,2,3,4,5,6,7,8,9]
+    
   },
 
   /**
@@ -99,6 +101,14 @@ Page({
    */
   btnTap: function() {
     console.log('🐔被按下！');
-    this.setData({buttonMsg:'wyw的🐔被按下了'})
+    this.setData({buttonMsg:'wyw的🐔被按下了'});
+    n=n+1;
+  },
+
+  /**
+   * 自定义测试1
+   */
+  testTap_1:function(e) {
+    console.log(e);
   }
 })

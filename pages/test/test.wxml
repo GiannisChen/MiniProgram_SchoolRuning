@@ -1,4 +1,17 @@
 <!--test.wxml-->
 <view>{{msg01}}{{msg02}}{{msg03}}</view>
 
-<button bindtap="btnTap">{{buttonMsg}}</button>
+<button bindtap="btnTap">{{buttonMsg+n+'次'}}</button>
+
+<view wx:for="{{array}}" wx:for-item="i">
+  <view wx:for="{{array}}" wx:for-item="j">
+    <view wx:if="{{i<=j}}">
+      {{i}}*{{j}}={{i*j}}
+    </view>
+  </view>
+</view>
+
+<button id= "testBtn_1" bindtap="testTap_1">测试1</button>
+
+<view style="color:red;background-color:yellow">测试</view>
+<view class="testStyle01 testStyle02">测试</view>

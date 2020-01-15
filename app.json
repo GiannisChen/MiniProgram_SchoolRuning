@@ -2,7 +2,7 @@
   "pages": [
     "pages/index/index",
     "pages/logs/logs",
-    "pages/test/test"
+    "pages/location/location"
   ],
 
   "window": {
@@ -32,7 +32,7 @@
         "selectedIconPath": "iconPicture/tab006.jpg"
       },
       {
-        "pagePath": "pages/test/test",
+        "pagePath": "pages/location/location",
         "text": "wywwd",
         "iconPath": "iconPicture/tab005.jpg",
         "selectedIconPath": "iconPicture/tab008.jpg"

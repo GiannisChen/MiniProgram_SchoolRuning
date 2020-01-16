@@ -1,9 +1,7 @@
 // pages/location/location.js
 
-/**
- * 实例化AMapWX对象，处理搜索数据
- */
-var amapFile = require('../../libs/amap-wx.js');
+var amapFile = require('../../libs/amap-wx.js');    //高德地图配置文件 
+var config = require('../../libs/config.js');       //自定义配置文件
 
 Page({
 
@@ -11,37 +9,51 @@ Page({
    * 页面的初始数据
    */
   data: {
-    src: ''
+    src: '',
+    markers: [],
+    latitude: '',
+    longitude: '',
+    textData: {}
     
   },
   onLoad: function() {
     var that = this;
-    var myAmapFun = new amapFile.AMapWX({ key:"0b72990a6f111479ca016c9e11457b06"});
-    wx.getSystemInfo({
-      success: function(data){
-        var height = data.windowHeight;
-        var width = data.windowWidth;
-        var size = width + "*" + height;
-        myAmapFun.getStaticmap({
-          zoom: 17,
-          size: size,
-          scale: 2,
-          markers: "mid,0xFF0000,A:116.37359,39.92437;116.47359,39.92437",
-         
-          success: function(data){
-            that.setData({
-              src: data.url
-            })
-            
-          },
-          fail: function(info){
-            wx.showModal({title:info.errMsg})
+    var key = config.Config.key;
+    var myAmapFun = new amapFile.AMapWX({ key: key });
+    myAmapFun.getRegeo({
+      iconPath: "../../iconPicture/tab001.jpg",
+      iconWidth: 22,
+      iconHeight: 32,
+      success: function (data) {
+        console.log(data);
+        var marker = [{
+          id: data[0].id,
+          latitude: data[0].latitude,
+          longitude: data[0].longitude,
+          iconPath: data[0].iconPath,
+          width: data[0].width,
+          height: data[0].height
+        }]
+        that.setData({
+          markers: marker
+        });
+        that.setData({
+          latitude: data[0].latitude
+        });
+        that.setData({
+          longitude: data[0].longitude
+        });
+        that.setData({
+          textData: {
+            name: data[0].name,
+            desc: data[0].desc
           }
         })
-
+      },
+      fail: function (info) {
+        // wx.showModal({title:info.errMsg})
       }
     })
-    
   },
 
   /**

@@ -1,11 +1,4 @@
-<!--pages/location/location.wxml-->
-<view class='title'> 体能 </view>
-<view class='demo-box'>
-  <view class='title'> wx.getLocation(OBJECT) </view>
-  <map latitude='{{lat}}' longitude='{{lon}}'></map>
-  <button type="primary" bindtap="getLocation"> 获取位置 </button>
-  <view class='title'> 纬度： {{lat}} </view>
-  <view class='title'> 经度： {{lon}} </view>
-  <view class='title'> 速度： {{speed}} </view>
-  <view class='title'> 精确度： {{accuracy}} </view>
+<view class="img_box">
+    <image src="{{src}}" />
 </view>
+

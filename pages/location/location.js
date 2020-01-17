@@ -90,7 +90,7 @@ Page({
     time: "0:00:00",
     polyline: [{
       points: oriPoints,
-    color:"#FFFF0000",
+    color:"#00FF00",
     width: 8,
     dottedLine: false
   }],
@@ -283,7 +283,7 @@ Page({
           meters: showMeters,
           polyline: [{
             points: oriPoints,
-            color:"#FF0000",
+            color:"#00FF00",
             width: 8,
             dottedLine: false
         }],

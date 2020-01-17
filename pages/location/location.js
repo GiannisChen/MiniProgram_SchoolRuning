@@ -8,6 +8,7 @@ var total_micro_second = 0;
 var starRun = 0;
 var totalSecond = 0;
 var oriMeters = 0.0;
+var oriPoints = [];
 
 /**
  *毫秒级倒计时
@@ -86,7 +87,13 @@ Page({
     markers: [],
     covers: [],
     meters: 0.00,
-    time: "0:00:00"
+    time: "0:00:00",
+    polyline: [{
+      points: oriPoints,
+    color:"#FFFF0000",
+    width: 8,
+    dottedLine: false
+  }],
   },
   onLoad: function() {
     // 页面初始化 options为页面跳转所带来的参数
@@ -152,7 +159,7 @@ Page({
         wx.openLocation({
           latitude: res.latitude, // 纬度，范围为-90~90，负数表示南纬
           longitude: res.longitude, // 经度，范围为-180~180，负数表示西经
-          scale: 28, // 缩放比例
+          scale: 18, // 缩放比例5~18
         })
       },
     })
@@ -206,20 +213,45 @@ Page({
           longitude: res.longitude,
           iconPath: '../../iconPicture/tab001.jpg',
         };
+
+        var newPoint = {
+          latitude: res.latitude,
+          longitude: res.longitude
+        }
+
         var oriCovers = that.data.covers;
+        //var oriPoints = that.data.polyline.points;
+        
 
         console.log("oriMeters----------")
         console.log(oriMeters);
-        var len = oriCovers.length;
+        var cover_len = oriCovers.length;
+        var point_len = oriPoints.length;
+        //var point_len = cover_len;
         var lastCover;
-        if (len == 0) {
+        var lastPoint;
+
+        if (cover_len == 0) {
           oriCovers.push(newCover);
         }
-        len = oriCovers.length;
-        var lastCover = oriCovers[len - 1];
+
+        if (point_len == 0) {
+          oriPoints.push(newPoint);
+          console.log("fuck")
+        }
+
+        cover_len = oriCovers.length;
+        // poly_len = oriPoints.length;
+        point_len = cover_len;
+
+        var lastCover = oriCovers[cover_len - 1];
+        var lastPoint = oriPoints[point_len - 1];
 
         console.log("oriCovers----------")
-        console.log(oriCovers, len);
+        console.log(oriCovers, cover_len);
+
+        console.log("oriPolies----------")
+        console.log(oriPoints, point_len);
 
         var newMeters = getDistance(lastCover.latitude, lastCover.longitude, res.latitude, res.longitude) / 1000;
 
@@ -236,13 +268,25 @@ Page({
         var showMeters = meters.toFixed(2);
 
         oriCovers.push(newCover);
+        oriPoints.push(newPoint);
 
         that.setData({
           latitude: res.latitude,
           longitude: res.longitude,
-          markers: [],
+          markers: [{
+            latitude: res.latitude,
+            longitude: res.longitude,
+            scale: 100
+          }
+          ],
           covers: oriCovers,
           meters: showMeters,
+          polyline: [{
+            points: oriPoints,
+            color:"#FF0000",
+            width: 8,
+            dottedLine: false
+        }],
         });
       },
     })

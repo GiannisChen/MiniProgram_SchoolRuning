@@ -5,17 +5,18 @@ var config = require('../../libs/config.js');       //自定义配置文件
 
 var countTooGetLocation = 0;
 var total_micro_second = 0;
-var starRun = 0;
+var startRun = 0;
 var totalSecond = 0;
 var oriMeters = 0.0;
 var oriPoints = [];
+
 
 /**
  *毫秒级倒计时
  */
 function count_down(that) {
 
-  if (starRun == 0) {
+  if (startRun == 0) {
     return;
   }
 
@@ -24,7 +25,7 @@ function count_down(that) {
     that.updateTime(time);
   }
 
-  if (countTooGetLocation >= 5000) { //1000为1s
+  if (countTooGetLocation >= 3000) { //1000为1s
     that.getLocation();
     countTooGetLocation = 0;
   }
@@ -85,13 +86,14 @@ Page({
     latitude: 0,
     longitude: 0,
     markers: [],
-    covers: [],
+    // covers: [],
     meters: 0.00,
     time: "0:00:00",
     polyline: [{
       points: oriPoints,
     color:"#00FF00",
     width: 8,
+    start: true,
     dottedLine: false
   }],
   },
@@ -99,7 +101,11 @@ Page({
     // 页面初始化 options为页面跳转所带来的参数
     this.getLocation()
     console.log("onLoad")
+    console.log(startRun)
     count_down(this);
+    this.setData({
+      start: false,
+    })
   },
 
   /**
@@ -152,26 +158,31 @@ Page({
   },
 
   //****************************
-  openLocation: function () {
-    wx.getLocation({
-      type: 'gcj02', // 默认为 wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标
-      success: function (res) {
-        wx.openLocation({
-          latitude: res.latitude, // 纬度，范围为-90~90，负数表示南纬
-          longitude: res.longitude, // 经度，范围为-180~180，负数表示西经
-          scale: 18, // 缩放比例5~18
-        })
-      },
-    })
-  },
+  // openLocation: function () {
+  //   wx.getLocation({
+  //     type: 'gcj02', // 默认为 wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标
+  //     success: function (res) {
+  //       wx.openLocation({
+  //         latitude: res.latitude, // 纬度，范围为-90~90，负数表示南纬
+  //         longitude: res.longitude, // 经度，范围为-180~180，负数表示西经
+  //         scale: 18, // 缩放比例5~18
+  //       })
+  //     },
+  //   })
+  // },
 
 
   //****************************
-  starRun: function () {
-    if (starRun == 1) {
+  startRun: function () {
+    if (startRun == 1) {
+      console.log(startRun);
       return;
     }
-    starRun = 1;
+    startRun = 1;
+    this.setData({
+      start: true
+    })
+    
     count_down(this);
     this.getLocation();
   },
@@ -179,8 +190,13 @@ Page({
 
   //****************************
   stopRun: function () {
-    starRun = 0;
+    startRun = 0;
+    console.log(startRun);
     count_down(this);
+
+    this.setData({
+      start: false
+    })
   },
 
 
@@ -208,52 +224,75 @@ Page({
         console.log(res)
 
         //make datas 
-        var newCover = {
+        // var newCover = {
+        //   latitude: res.latitude,
+        //   longitude: res.longitude,
+        //   iconPath: '../../iconPicture/dot.png',
+          
+        // };
+
+        var newMarker = {
           latitude: res.latitude,
           longitude: res.longitude,
-          iconPath: '../../iconPicture/tab001.jpg',
-        };
+          iconPath: '../../iconPicture/dot.png',
+          width: 10,
+          height: 10
+        }
 
         var newPoint = {
           latitude: res.latitude,
           longitude: res.longitude
         }
 
-        var oriCovers = that.data.covers;
+        //var oriCovers = that.data.covers;
         //var oriPoints = that.data.polyline.points;
-        
+        var oriMarkers = that.data.markers;
 
         console.log("oriMeters----------")
         console.log(oriMeters);
-        var cover_len = oriCovers.length;
-        var point_len = oriPoints.length;
-        //var point_len = cover_len;
-        var lastCover;
-        var lastPoint;
+        console.log(startRun);
 
-        if (cover_len == 0) {
-          oriCovers.push(newCover);
-        }
+        //var cover_len = oriCovers.length;
+        var point_len = oriPoints.length;
+        var markers_len = oriMarkers.length;
+
+        //var point_len = cover_len;
+        //var lastCover;
+        var lastPoint;
+        var lastMarker;
+
+        // if (cover_len == 0) {
+        //   oriCovers.push(newCover);
+        // }
 
         if (point_len == 0) {
           oriPoints.push(newPoint);
           console.log("fuck")
         }
 
-        cover_len = oriCovers.length;
+        if (markers_len == 0) {
+          oriMarkers.push(newMarker);
+        }
+        //cover_len = oriCovers.length;
         // poly_len = oriPoints.length;
-        point_len = cover_len;
+        
+        markers_len = oriMarkers.length;
+        point_len = markers_len;
 
-        var lastCover = oriCovers[cover_len - 1];
+        //var lastCover = oriCovers[cover_len - 1];
         var lastPoint = oriPoints[point_len - 1];
+        var lastMarker = oriMarkers[markers_len - 1];
 
-        console.log("oriCovers----------")
-        console.log(oriCovers, cover_len);
+        // console.log("oriCovers----------")
+        // console.log(oriCovers, cover_len);
 
         console.log("oriPolies----------")
         console.log(oriPoints, point_len);
 
-        var newMeters = getDistance(lastCover.latitude, lastCover.longitude, res.latitude, res.longitude) / 1000;
+        console.log("oriMarkers----------")
+        console.log(oriMarkers, markers_len);
+
+        var newMeters = getDistance(lastMarker.latitude, lastMarker.longitude, res.latitude, res.longitude) / 1000;
 
         if (newMeters < 0.0015) {
           newMeters = 0.0;
@@ -267,19 +306,15 @@ Page({
         var meters = new Number(oriMeters);
         var showMeters = meters.toFixed(2);
 
-        oriCovers.push(newCover);
+        //oriCovers.push(newCover);
         oriPoints.push(newPoint);
+        oriMarkers.push(newMarker);
 
         that.setData({
           latitude: res.latitude,
           longitude: res.longitude,
-          markers: [{
-            latitude: res.latitude,
-            longitude: res.longitude,
-            scale: 100
-          }
-          ],
-          covers: oriCovers,
+          markers: oriMarkers,
+          //covers: oriCovers,
           meters: showMeters,
           polyline: [{
             points: oriPoints,
@@ -289,6 +324,58 @@ Page({
         }],
         });
       },
+      
+      fail: function () {
+        wx.getSetting({
+          success: function (res) {
+            var statu = res.authSetting;
+            if (!statu['scope.userLocation']) {
+                wx.showModal({
+                    title: '是否授权当前位置',
+                    content: '需要获取您的地理位置，请确认授权，否则地图功能将无法使用',
+                    success: function (tip) {
+                        if (tip.confirm) {
+                            wx.openSetting({
+                                success: function (data) {
+                                    if (data.authSetting["scope.userLocation"] === true) {
+                                        wx.showToast({
+                                            title: '授权成功',
+                                            icon: 'success',
+                                            duration: 1000
+                                        })
+                                        //授权成功之后，再调用chooseLocation选择地方
+                                        wx.chooseLocation({
+                                            success: function(res) {
+                                                obj.setData({
+                                                    addr: res.address
+                                                })
+                                            },
+                                        })
+                                    } else {
+                                        wx.showToast({
+                                            title: '授权失败',
+                                            icon: 'success',
+                                            duration: 1000
+                                        })
+                                    }
+                                }
+                            })
+                        }
+                    }
+                })
+            }
+        },
+        fail: function (res) {
+            wx.showToast({
+                title: '调用授权窗口失败',
+                icon: 'success',
+                duration: 1000
+            })
+        }
+        })
+      }
+
+
     })
   }
 })

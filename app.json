@@ -6,12 +6,12 @@
   ],
 
   "window": {
-    "backgroundTextStyle": "dark",
-    "backgroundColor": "#8f8f8f",
+    "backgroundTextStyle": "light",
+    "backgroundColor": "#ffffff",
 
-    "navigationBarBackgroundColor": "#8f8f8f",
+    "navigationBarBackgroundColor": "#ffffff",
     "navigationBarTitleText": "wywnb",
-    "navigationBarTextStyle": "white",
+    "navigationBarTextStyle": "black",
     "navigationStyle": "default",
 
     "enablePullDownRefresh": true

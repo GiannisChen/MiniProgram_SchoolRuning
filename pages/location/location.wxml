@@ -9,7 +9,7 @@
         markers="{{markers}}"
         
         >
-
+        <!--开始/暂停 按键-->
         <cover-view class='ButtonLayout'>
         <!-- <image class="icon" src="../../iconPicture/tab001.jpg" mode="aspectFit"/> -->
         <!-- <button bindtap="openLocation">打开位置</button> -->
@@ -29,6 +29,12 @@
         </block>
 
         </cover-view>
+
+        <cover-view class="Container">
+            <cover-view class="CoverText">\n里程数：{{meters}}km</cover-view>
+            <cover-view class="CoverText">\n\n时 间：{{time}}</cover-view>
+        </cover-view>
+
 
     </map>
 

@@ -258,8 +258,11 @@ checkbox, radio{
 .ButtonImage {
   width: 200rpx;
   height: 200rpx;
-  align-items: center;
+  
+  /* margin-left: 40rpx; */
+  align-items: stretch;
   justify-content: center;
+  
 }
 
 /* .StartRunButton::after {
@@ -267,14 +270,16 @@ checkbox, radio{
 } */
 
  .StartRunButton {
-    width: 100%;
-    height: 250rpx;
+    width: 200rpx;
+    height: 210rpx;
     
     background-color: transparent;
-    color: black;
+    /* color: rgba(0, 0, 0, 0.5); */
+
+
     border-radius: 20rpx;
     
-    flex-direction: row;
+    /* flex-direction: row; */
     align-items: center;
     /* justify-content: space-between; */
     font-size: 30rpx;
@@ -288,14 +293,15 @@ checkbox, radio{
 }
 
 .StopRunButton {
-  width: 100%;
-  height: 250rpx;
+  width: 200rpx;
+  height: 210rpx;
   
   background-color: transparent;
-  color: black;
+  /* color: rgba(0, 0, 0, 0.5); */
+
   border-radius: 20rpx;
   
-  flex-direction: row;
+  /* flex-direction: row; */
   align-items: center;
   /* justify-content: space-between; */
   font-size: 30rpx;
@@ -310,9 +316,10 @@ border: 0;
 
 .ButtonLayout {
   /* margin-top: 40rpx; */
-  width: 100%;
+  width: 200rpx;
+  margin-left: 275rpx;
   flex-direction: row;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
   /* justify-content: space-evenly; */
   justify-content: center;
   bottom: 10rpx;

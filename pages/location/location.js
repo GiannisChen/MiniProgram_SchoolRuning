@@ -158,20 +158,6 @@ Page({
 
   },
 
-  //****************************
-  // openLocation: function () {
-  //   wx.getLocation({
-  //     type: 'gcj02', // 默认为 wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标
-  //     success: function (res) {
-  //       wx.openLocation({
-  //         latitude: res.latitude, // 纬度，范围为-90~90，负数表示南纬
-  //         longitude: res.longitude, // 经度，范围为-180~180，负数表示西经
-  //         scale: 18, // 缩放比例5~18
-  //       })
-  //     },
-  //   })
-  // },
-
 
   //****************************
   startRun: function () {
@@ -288,29 +274,37 @@ Page({
         console.log("res----------")
         console.log(res)
 
-        //make datas 
-        // var newCover = {
-        //   latitude: res.latitude,
-        //   longitude: res.longitude,
-        //   iconPath: '../../iconPicture/dot.png',
-          
-        // };
+        var tempLatitude = 0.00;
+        var tempLongitude = 0.00;
 
+        console.log("location------------------------")
+        for (let index = 0; index < 5; index++) {
+          tempLatitude += res.latitude;
+          tempLongitude += res.longitude;
+          console.log(res.latitude,res.longitude);
+          for (let index = 0; index < 1000; index++) {
+            index++;
+            index--;
+          }
+          
+        }
+
+        tempLatitude /= 5;
+        tempLongitude /= 5;
+        console.log(tempLatitude,tempLongitude);
         var newMarker = {
-          latitude: res.latitude,
-          longitude: res.longitude,
+          latitude: tempLatitude,
+          longitude: tempLongitude,
           iconPath: '../../iconPicture/dot.png',
           width: 10,
           height: 10
         }
 
         var newPoint = {
-          latitude: res.latitude,
-          longitude: res.longitude
+          latitude: tempLatitude,
+          longitude: tempLongitude
         }
 
-        //var oriCovers = that.data.covers;
-        //var oriPoints = that.data.polyline.points;
         var oriMarkers = that.data.markers;
 
         console.log("oriMeters----------")
@@ -376,8 +370,8 @@ Page({
         oriMarkers.push(newMarker);
 
         that.setData({
-          latitude: res.latitude,
-          longitude: res.longitude,
+          latitude: tempLatitude,
+          longitude: tempLongitude,
           markers: oriMarkers,
           //covers: oriCovers,
           meters: showMeters,
